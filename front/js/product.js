@@ -1,8 +1,8 @@
 function getCurrentURL () {
     return window.location.href
   }
-  var url = new URL(getCurrentURL());
-  var idp = url.searchParams.get("id");
+  const url = new URL(getCurrentURL());
+  const idp = url.searchParams.get("id");
   console.log(idp);
 
 function displayProduct(objet){
@@ -29,6 +29,21 @@ function displayProduct(objet){
 
   img.appendChild(newimg);
 }
+
+const button = document.getElementById('addToCart');
+
+button.addEventListener('click', (e) => {
+  e.preventDefault();
+  console.log(title)
+  const canap = {
+    id: idp,
+    color: colors.value,
+    quantity: quantity.value
+  }
+  localStorage.setItem("canap", JSON.stringify(canap));
+});
+
+
 
 fetch(`http://localhost:3000/api/products/${idp}`)
     .then(function(res) {
