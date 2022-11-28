@@ -65,7 +65,7 @@ let canap = getCart();
 if (canap != null) {
 
 console.log(idp, quantity, color)
-// cherche dans le panier si il y as un produit donc l'id et = a l'id du produit ajouter
+// cherche dans le panier si il y as un produit donc l'id et = a l'id du produit ajouter et recherche la couleur
 let foundProduct = canap.findIndex((p) => p.id === idp && p.color === color);
 
 console.log(canap);
