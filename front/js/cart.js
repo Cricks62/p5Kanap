@@ -1,5 +1,6 @@
 let canap = getCart();
-
+let totalPrice = 0;
+let totalQuantity = 0;
 
 
 if(canap === null){
@@ -62,9 +63,10 @@ function basket(canap) {
      const newp4 = document.createElement('p');
      newp4.className = 'deleteItem';
      newp4.innerText = 'Supprimer';
-     const totalQuantity = document.querySelector('totalQuantity');
+     const totalQuantity2 = document.querySelector('#totalQuantity');
+     totalQuantity2.innerText = `${totalQuantity}`;
      const totalPrice2 = document.querySelector('#totalPrice');
-    //  totalPrice2 = number;
+     totalPrice2.innerText = `${totalPrice}`;
    
      cart.appendChild(newarticle);
      newarticle.appendChild(newdiv)
@@ -81,16 +83,14 @@ function basket(canap) {
      newdiv4.appendChild(newdiv6);
      newdiv6.appendChild(newp4);
 
-    let totalPrice = [];
+    totalPrice += objet.price * canap.quantity;
+    console.log(totalPrice);
 
-    for (let z = 0; z < objet.length; z++){
-      let priceBasket = objet.price * canap.quantity;
-    
-    totalPrice.push(priceBasket)
-    console.log(totalPrice)
-    }
-    
-    })
+    totalQuantity += 0;
+    console.log(totalQuantity);
+
+
+   })
    
    .catch(function(err) {
      console.log(err)
