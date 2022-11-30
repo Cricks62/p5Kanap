@@ -1,5 +1,5 @@
 let canap = getCart();
-console.log(canap);
+
 
 
 if(canap === null){
@@ -22,6 +22,8 @@ function basket(canap) {
      }
    })
    .then(function(objet) {
+
+    
     
      const cart = document.querySelector('#cart__items');
      const newarticle = document.createElement('article');
@@ -60,9 +62,9 @@ function basket(canap) {
      const newp4 = document.createElement('p');
      newp4.className = 'deleteItem';
      newp4.innerText = 'Supprimer';
-   
-   
-   
+     const totalQuantity = document.querySelector('totalQuantity');
+     const totalPrice2 = document.querySelector('#totalPrice');
+    //  totalPrice2 = number;
    
      cart.appendChild(newarticle);
      newarticle.appendChild(newdiv)
@@ -75,20 +77,26 @@ function basket(canap) {
      newarticle.appendChild(newdiv4);
      newdiv4.appendChild(newdiv5);
      newdiv5.appendChild(newp3);
-     newdiv5.appendChild(newinput)
-     newdiv4.appendChild(newdiv6)
-     newdiv6.appendChild(newp4)
+     newdiv5.appendChild(newinput);
+     newdiv4.appendChild(newdiv6);
+     newdiv6.appendChild(newp4);
 
+    let totalPrice = [];
+
+    for (let z = 0; z < objet.length; z++){
+      let priceBasket = objet.price * canap.quantity;
+    
+    totalPrice.push(priceBasket)
+    console.log(totalPrice)
+    }
+    
     })
+   
    .catch(function(err) {
      console.log(err)
  });
 
 }
-
-const totalQuantity = document.querySelector('totalQuantity')
-const totalPrice2 = document.querySelector('#totalPrice')
-
 
     
 function saveCart(canap) {
@@ -108,25 +116,4 @@ function getCart() {
     // JSON.parse retransforme la chaine de caractere "string" en objet
     return JSON.parse(canap)
   }
-}
-
-
-    
-    //si un produit et présent dans le panier alors afficher :
-    // id, couleur, quantiter.
-    // si un produit et présent dans le panier alors récuperer dans l'api :
-    //image + alt, prix, nom.
-  
-function getNumberProduct(){
-  // recuperation du panier
-  let canap = getCart();
-  // définir le panier a 0
-  let number = 0;
-  // recuperation du nombre de produit dans le panier (canap)
-  for (let product of canap) {
-    //caculer le nombre de produit total dans le panier
-    number += product.quantity;
-  }
-  // obtention du total 
-  return number;
 }
