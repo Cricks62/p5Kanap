@@ -6,7 +6,6 @@ if(canap === null){
   const panierVide = 'Le panier vide';
   
 } else {
-  // let produitPanier = [];
 
   for(a = 0; a < canap.length; a++ ){
 
@@ -49,13 +48,13 @@ function basket(canap) {
      newdiv5.className = 'cart__item__content__settings__quantity';
      const newp3 = document.createElement('p');
      newp3.innerText = 'Qté :'
-     const newimput = document.createElement('imput');
-     newimput.className = 'itemQuantity';
-     newimput.setAttribute('type','number');
-     newimput.setAttribute('name', 'itemQuantity');
-     newimput.setAttribute('min','1');
-     newimput.setAttribute('max','100');
-     newimput.setAttribute('value', `${canap.quantity}`);
+     const newinput = document.createElement('input');
+     newinput.className = 'itemQuantity';
+     newinput.setAttribute('type','number');
+     newinput.setAttribute('name', 'itemQuantity');
+     newinput.setAttribute('min',1);
+     newinput.setAttribute('max',100);
+     newinput.setAttribute('value', `${canap.quantity}`);
      const newdiv6 = document.createElement('div');
      newdiv6.className = 'cart__item__content__settings__delete';
      const newp4 = document.createElement('p');
@@ -76,17 +75,21 @@ function basket(canap) {
      newarticle.appendChild(newdiv4);
      newdiv4.appendChild(newdiv5);
      newdiv5.appendChild(newp3);
-     newdiv5.appendChild(newimput)
+     newdiv5.appendChild(newinput)
      newdiv4.appendChild(newdiv6)
      newdiv6.appendChild(newp4)
 
-   })
+    })
    .catch(function(err) {
      console.log(err)
  });
 
 }
-  
+
+const totalQuantity = document.querySelector('totalQuantity')
+const totalPrice2 = document.querySelector('#totalPrice')
+
+
     
 function saveCart(canap) {
 // JSON.stringify prend l'objet et le transforme en chaine de caractere
