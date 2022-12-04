@@ -63,8 +63,13 @@ function basket(canap) {
      const newp4 = document.createElement('p');
      newp4.className = 'deleteItem';
      newp4.innerText = 'Supprimer';
+
+     totalQuantity += parseInt(canap.quantity);
+
      const totalQuantity2 = document.querySelector('#totalQuantity');
      totalQuantity2.innerText = `${totalQuantity}`;
+
+     totalPrice += objet.price * canap.quantity;
      const totalPrice2 = document.querySelector('#totalPrice');
      totalPrice2.innerText = `${totalPrice}`;
    
@@ -83,13 +88,9 @@ function basket(canap) {
      newdiv4.appendChild(newdiv6);
      newdiv6.appendChild(newp4);
 
-    totalPrice += objet.price * canap.quantity;
-    console.log(totalPrice);
+    // newinput.addEventListener('',(event) => updateQuantity(canap.id, canap.color, canap.quantity))
 
-    totalQuantity += 0;
-    console.log(totalQuantity);
-
-
+    newp4.addEventListener('click',(event) => removeCanap(canap.id, canap.color));
    })
    
    .catch(function(err) {
@@ -117,3 +118,16 @@ function getCart() {
     return JSON.parse(canap)
   }
 }
+
+function removeCanap(idp, color) {
+  let canap = getCart();
+  const indexProduct = canap.findIndex(p => p.id === idp && p.color === color);
+  canap.splice(indexProduct, 1);
+  saveCart(canap);
+  location.reload();
+}
+
+// function updateQuantity(idp, color, quantity) {
+//   let canap = getCart()
+
+// }
