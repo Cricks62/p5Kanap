@@ -88,9 +88,9 @@ function basket(canap) {
      newdiv4.appendChild(newdiv6);
      newdiv6.appendChild(newp4);
 
-    // newinput.addEventListener('',(event) => updateQuantity(canap.id, canap.color, canap.quantity))
+    newinput.addEventListener('change', (e) => updateQuantity(canap.id, canap.color, canap.quantity))
 
-    newp4.addEventListener('click',(event) => removeCanap(canap.id, canap.color));
+    newp4.addEventListener('click',(e) => removeCanap(canap.id, canap.color));
    })
    
    .catch(function(err) {
@@ -127,7 +127,16 @@ function removeCanap(idp, color) {
   location.reload();
 }
 
-// function updateQuantity(idp, color, quantity) {
-//   let canap = getCart()
-
-// }
+function updateQuantity(idp, color, quantity) {
+  let canap = getCart()
+  let quantityProduct = canap.find(p => p.id === idp && p.color === color && p.quantity === quantity)
+  console.log(quantityProduct)
+   if (quantityProduct != undefined) {
+     quantityProduct.quantity += quantity;
+     console.log ('je suis ici', quantity);
+   }else if ( quantityProduct <= 0 ) {
+       removeCanap(quantityProduct)
+   }else{
+       saveCart(canap)
+   }
+}
