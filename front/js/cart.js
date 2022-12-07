@@ -88,7 +88,8 @@ function basket(canap) {
      newdiv4.appendChild(newdiv6);
      newdiv6.appendChild(newp4);
 
-    newinput.addEventListener('change', (e) => updateQuantity(canap.id, canap.color, canap.quantity))
+    // il faut envoyer la nouvelle valeur saisie : newinput.value et non canap.quantity qui est l'ancienne valeur 
+    newinput.addEventListener('change', (e) => updateQuantity(canap.id, canap.color, newinput.value))
 
     newp4.addEventListener('click',(e) => removeCanap(canap.id, canap.color));
    })
@@ -127,16 +128,21 @@ function removeCanap(idp, color) {
   location.reload();
 }
 
-function updateQuantity(idp, color, quantity) {
-  let canap = getCart()
-  let quantityProduct = canap.find(p => p.id === idp && p.color === color && p.quantity === quantity)
-  console.log(quantityProduct)
-   if (quantityProduct != undefined) {
-     quantityProduct.quantity += quantity;
-     console.log ('je suis ici', quantity);
-   }else if ( quantityProduct <= 0 ) {
-       removeCanap(quantityProduct)
-   }else{
-       saveCart(canap)
-   }
+function updateQuantity(idp, color, newQty ) {
+  let canap = getCart();
+  // on recherche l'index du produit dans notre localStorage
+  let indexProduct = canap.findIndex(p => p.id === idp && p.color === color)
+ // si l index est positif c'est qu'on a trouvé le produit
+  if(indexProduct>=0) {
+ // article trouvé
+ // on vient modifier la quantité DU produit grâce à son index trouvé plus haut avec la newQty envoyée
+ canap[indexProduct].quantity = parseInt(newQty);
+ // on sauvegarde le panier
+ saveCart(canap);
+ // on refresh la page
+ window.location.reload();
+  } else {
+ // article à supprimer
+ removeCanap(idp, color);
+  }
 }
