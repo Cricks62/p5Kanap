@@ -146,3 +146,27 @@ function updateQuantity(idp, color, newQty ) {
  removeCanap(idp, color);
   }
 }
+//------ Partie formulaire ------//
+
+let form = document.querySelector('.cart__order__form')
+
+// écouter la modification du prénom 
+form.firstName.addEventListener('change',function() {
+  validName(this)
+});
+
+const validName = function(inputFirstName) {
+  // creation de l'expression réguliere pour valider le prénom
+  let firstNameRegExp = new RegExp(
+    '^[a-zA-z-]+$', 'g'
+  );
+  let testFirstName = firstNameRegExp.test(inputFirstName.value);
+  let errormsg = inputFirstName.nextElementSibling;
+
+  if(testFirstName == true) {
+    errormsg.innerText = 'Prénom Valide';
+  } else {
+    errormsg.innerText = "Votre prénom ne doit pas contenir de chiffre ou d'accent";
+  }
+};
+ 
