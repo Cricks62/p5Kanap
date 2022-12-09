@@ -146,27 +146,107 @@ function updateQuantity(idp, color, newQty ) {
  removeCanap(idp, color);
   }
 }
-//------ Partie formulaire ------//
+//------------- Partie formulaire --------------//
 
 let form = document.querySelector('.cart__order__form')
 
 // écouter la modification du prénom 
 form.firstName.addEventListener('change',function() {
-  validName(this)
+  validFirstName(this)
 });
 
-const validName = function(inputFirstName) {
+
+const validFirstName = function(inputFirstName) {
   // creation de l'expression réguliere pour valider le prénom
   let firstNameRegExp = new RegExp(
-    '^[a-zA-z-]+$', 'g'
+    '^[a-zA-Z-]+$', 'g'
   );
+
+  // on test l'expression réguliere
   let testFirstName = firstNameRegExp.test(inputFirstName.value);
+  // récuperation de la balise P
   let errormsg = inputFirstName.nextElementSibling;
 
   if(testFirstName == true) {
     errormsg.innerText = 'Prénom Valide';
   } else {
     errormsg.innerText = "Votre prénom ne doit pas contenir de chiffre ou d'accent";
+  }
+};
+
+form.lastName.addEventListener('change', function() {
+  validLastName(this)
+});
+
+const validLastName = function(inputLastName) {
+  let lastNameRegExp = new RegExp(
+    '^[a-zA-Z-]+$', 'g'
+  );
+  let testLastName = lastNameRegExp.test(inputLastName.value);
+  let errormsg = inputLastName.nextElementSibling;
+
+  if(testLastName == true) {
+    errormsg.innerText = 'Nom Valide';
+  } else {
+    errormsg.innerText = "Votre Nom ne doit pas contenir de chiffre ou d'accent";
+  }
+};
+
+form.address.addEventListener('change', function() {
+  validAddress(this)
+});
+
+const validAddress = function(inputAddress) {
+  let addressRegExp = new RegExp(
+    '^[a-zA-Z0-9 -]+$', 'g'
+  );
+  let testAddress = addressRegExp.test(inputAddress.value);
+  let errormsg = inputAddress.nextElementSibling;
+
+  if(testAddress == true) {
+    errormsg.innerText = 'Adresse Valide';
+  } else {
+    errormsg.innerText = "Votre adresse ne doit pas contenir de caractère spéciaux";
+  }
+};
+
+form.email.addEventListener('change',function() {
+  validEmail(this)
+});
+
+form.city.addEventListener('change', function() {
+  validCity(this)
+});
+
+const validCity = function(inputCity) {
+  let cityRegExp = new RegExp(
+    '^[a-zA-Z -]+$', 'g'
+  );
+  let testCity = cityRegExp.test(inputCity.value);
+  let errormsg = inputCity.nextElementSibling;
+
+  if(testCity == true) {
+    errormsg.innerText = 'Ville Valide';
+  } else {
+    errormsg.innerText = "Le nom de votre ville ne doit pas contenir de chiffre ou d'accent";
+  }
+};
+
+form.email.addEventListener('change',function() {
+  validEmail(this)
+});
+
+const validEmail = function(inputEmail) {
+  let emailRegExp = new RegExp(
+    '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', 'g'
+  );
+  let testEmail = emailRegExp.test(inputEmail.value);
+  let errormsg = inputEmail.nextElementSibling;
+
+  if(testEmail == true) {
+    errormsg.innerText = 'Email Valide';
+  } else {
+    errormsg.innerText = "Votre Email doit contenir un @";
   }
 };
  
