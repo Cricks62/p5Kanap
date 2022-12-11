@@ -159,7 +159,7 @@ form.firstName.addEventListener('change',function() {
 const validFirstName = function(inputFirstName) {
   // creation de l'expression réguliere pour valider le prénom
   let firstNameRegExp = new RegExp(
-    '^[a-zA-Z-]+$', 'g'
+    '^[a-zA-Z-àâäéèêëïîôöùûüÿç-]+$', 'g'
   );
 
   // on test l'expression réguliere
@@ -167,10 +167,12 @@ const validFirstName = function(inputFirstName) {
   // récuperation de la balise P
   let errormsg = inputFirstName.nextElementSibling;
 
-  if(testFirstName == true) {
+  if(testFirstName) {
     errormsg.innerText = 'Prénom Valide';
+    return true;
   } else {
-    errormsg.innerText = "Votre prénom ne doit pas contenir de chiffre ou d'accent";
+    errormsg.innerText = "Votre prénom ne doit pas contenir de chiffre";
+    return false;
   }
 };
 
@@ -180,15 +182,17 @@ form.lastName.addEventListener('change', function() {
 
 const validLastName = function(inputLastName) {
   let lastNameRegExp = new RegExp(
-    '^[a-zA-Z-]+$', 'g'
+    '^[a-zA-Z-àâäéèêëïîôöùûüÿç-]+$', 'g'
   );
   let testLastName = lastNameRegExp.test(inputLastName.value);
   let errormsg = inputLastName.nextElementSibling;
 
-  if(testLastName == true) {
+  if(testLastName) {
     errormsg.innerText = 'Nom Valide';
+    return true;
   } else {
-    errormsg.innerText = "Votre Nom ne doit pas contenir de chiffre ou d'accent";
+    errormsg.innerText = "Votre Nom ne doit pas contenir de chiffre";
+    return false;
   }
 };
 
@@ -198,21 +202,20 @@ form.address.addEventListener('change', function() {
 
 const validAddress = function(inputAddress) {
   let addressRegExp = new RegExp(
-    '^[a-zA-Z0-9 -]+$', 'g'
+    '^[a-zA-Z0-9-àâäéèêëïîôöùûüÿç -]+$', 'g'
   );
   let testAddress = addressRegExp.test(inputAddress.value);
   let errormsg = inputAddress.nextElementSibling;
 
-  if(testAddress == true) {
+  if(testAddress) {
     errormsg.innerText = 'Adresse Valide';
+    return true;
   } else {
     errormsg.innerText = "Votre adresse ne doit pas contenir de caractère spéciaux";
+    return false;
   }
 };
 
-form.email.addEventListener('change',function() {
-  validEmail(this)
-});
 
 form.city.addEventListener('change', function() {
   validCity(this)
@@ -220,15 +223,17 @@ form.city.addEventListener('change', function() {
 
 const validCity = function(inputCity) {
   let cityRegExp = new RegExp(
-    '^[a-zA-Z -]+$', 'g'
+    '^[a-zA-Z-àâäéèêëïîôöùûüÿç -]+$', 'g'
   );
   let testCity = cityRegExp.test(inputCity.value);
   let errormsg = inputCity.nextElementSibling;
 
-  if(testCity == true) {
+  if(testCity) {
     errormsg.innerText = 'Ville Valide';
+    return true;
   } else {
     errormsg.innerText = "Le nom de votre ville ne doit pas contenir de chiffre ou d'accent";
+    return false;
   }
 };
 
@@ -243,10 +248,58 @@ const validEmail = function(inputEmail) {
   let testEmail = emailRegExp.test(inputEmail.value);
   let errormsg = inputEmail.nextElementSibling;
 
-  if(testEmail == true) {
+  if(testEmail) {
     errormsg.innerText = 'Email Valide';
+    return true
   } else {
     errormsg.innerText = "Votre Email doit contenir un @";
+    return false
   }
 };
- 
+
+// --------- Partie commande ----------
+
+// if (testFirstName == true && testLastName == true && testAddress == true && testCity == true && testEmail == true) {
+
+// }
+let button = document.getElementById('order')
+
+button.addEventListener('click', function(e) {
+  e.preventDefault();
+//   if (!validFirstName(document.getElementById('firstName').value)
+// || !validLastname(document.getElementById('lastName').value)
+// || !validAddress(document.getElementById('address').value)
+// || !validCity(document.getElementById('city').value)
+// || !validEmail(document.getElementById('email').value)
+// ) {
+// 	alert('une erreur sur le formulaire');
+// } else {
+// 	alert('go api');
+// }
+
+let user = {
+  firstName: document.getElementById('firstName').value
+}
+let productId = [];
+
+fetch("http://localhost:3000/api/products/order", {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8'
+  },
+  body: JSON.stringify(user)
+})
+  .then(function(res) {
+    if (res.ok) {
+      return res.json();
+    }
+  })
+  .then(function(response) {
+    console.log(response)
+  })
+  .catch(function(err) {
+     console.log(err)
+  });
+});
+
+
