@@ -131,6 +131,14 @@ function removeCanap(idp, color) {
 }
 
 function updateQuantity(idp, color, newQty ) {
+    if (!idp || !color || !newQty) {
+    return false;
+    }
+    if (newQty <= 0 || newQty >= 100)  {
+    alert('Quantité saisie incorrecte');
+    return false;
+    }
+    
   let canap = getCart();
   // on recherche l'index du produit dans notre localStorage
   let indexProduct = canap.findIndex(p => p.id === idp && p.color === color)
